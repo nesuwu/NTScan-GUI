@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Page
+    x:Class="NTScanGUI.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  Padding="0,0,0,24">
+        <StackPanel MaxWidth="800"
+                    Margin="36,28,36,0"
+                    HorizontalAlignment="Stretch"
+                    Spacing="4">
+
+            <TextBlock Text="Settings"
+                       Style="{StaticResource TitleTextBlockStyle}"
+                       Margin="0,0,0,20" />
+
+            <!-- ═══ Appearance ═══ -->
+            <TextBlock Text="Appearance"
+                       Style="{StaticResource BodyStrongTextBlockStyle}"
+                       Margin="0,0,0,6" />
+
+            <!-- Theme card -->
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="20,16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Spacing="2" VerticalAlignment="Center">
+                        <TextBlock Text="App theme" />
+                        <TextBlock Text="Select which theme to display"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   FontSize="12" />
+                    </StackPanel>
+                    <ComboBox x:Name="ThemeComboBox"
+                              Grid.Column="1"
+                              Width="180"
+                              SelectionChanged="ThemeComboBox_SelectionChanged">
+                        <ComboBoxItem Content="Light" Tag="Light" />
+                        <ComboBoxItem Content="Dark" Tag="Dark" />
+                        <ComboBoxItem Content="Use system setting" Tag="System" />
+                    </ComboBox>
+                </Grid>
+            </Border>
+
+            <!-- ═══ Scan Defaults ═══ -->
+            <TextBlock Text="Scan Defaults"
+                       Style="{StaticResource BodyStrongTextBlockStyle}"
+                       Margin="0,24,0,6" />
+
+            <!-- Default scan mode -->
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8,8,0,0"
+                    Padding="20,14">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Default scan mode" VerticalAlignment="Center" />
+                    <ComboBox x:Name="ScanModeComboBox"
+                              Grid.Column="1"
+                              Width="240"
+                              SelectionChanged="ScanModeComboBox_SelectionChanged">
+                        <ComboBoxItem Content="Fast (metadata only)" />
+                        <ComboBoxItem Content="Accurate (ADS + allocation)" />
+                    </ComboBox>
+                </Grid>
+            </Border>
+
+            <!-- Follow symlinks -->
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1,0,1,1"
+                    Padding="20,14">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Follow symlinks by default" VerticalAlignment="Center" />
+                    <ToggleSwitch x:Name="FollowSymlinksToggle"
+                                  Grid.Column="1"
+                                  Toggled="FollowSymlinksToggle_Toggled" />
+                </Grid>
+            </Border>
+
+            <!-- Show files -->
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1,0,1,1"
+                    Padding="20,14">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Include individual files by default" VerticalAlignment="Center" />
+                    <ToggleSwitch x:Name="ShowFilesToggle"
+                                  Grid.Column="1"
+                                  Toggled="ShowFilesToggle_Toggled" />
+                </Grid>
+            </Border>
+
+            <!-- Min duplicate size -->
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1,0,1,1"
+                    CornerRadius="0,0,8,8"
+                    Padding="20,14">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Spacing="2" VerticalAlignment="Center">
+                        <TextBlock Text="Default minimum duplicate size" />
+                        <TextBlock Text="In bytes (1048576 = 1 MiB)"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   FontSize="12" />
+                    </StackPanel>
+                    <NumberBox x:Name="MinDuplicateSizeBox"
+                               Grid.Column="1"
+                               Width="200"
+                               Minimum="0"
+                               SpinButtonPlacementMode="Inline"
+                               ValueChanged="MinDuplicateSizeBox_ValueChanged" />
+                </Grid>
+            </Border>
+
+            <!-- ═══ Cache Paths ═══ -->
+            <TextBlock Text="Cache Paths"
+                       Style="{StaticResource BodyStrongTextBlockStyle}"
+                       Margin="0,24,0,6" />
+
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8,8,0,0"
+                    Padding="20,14">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Scan cache path" />
+                    <TextBox x:Name="ScanCachePathTextBox"
+                             PlaceholderText="Leave empty for default"
+                             LostFocus="CachePath_LostFocus" />
+                </StackPanel>
+            </Border>
+
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1,0,1,1"
+                    CornerRadius="0,0,8,8"
+                    Padding="20,14">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Hash cache path" />
+                    <TextBox x:Name="HashCachePathTextBox"
+                             PlaceholderText="Leave empty for default"
+                             LostFocus="CachePath_LostFocus" />
+                </StackPanel>
+            </Border>
+
+            <!-- ═══ About ═══ -->
+            <TextBlock Text="About"
+                       Style="{StaticResource BodyStrongTextBlockStyle}"
+                       Margin="0,24,0,6" />
+
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="20,16">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="NTScan Desktop"
+                               Style="{StaticResource BodyStrongTextBlockStyle}" />
+                    <TextBlock Text="WinUI 3 frontend for the NTScan Rust API."
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               FontSize="12" />
+                    <HyperlinkButton Content="View on GitHub"
+                                     NavigateUri="https://github.com/nesuwu/NTScan"
+                                     Padding="0"
+                                     Margin="0,4,0,0" />
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

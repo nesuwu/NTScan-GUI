@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "NTScanGUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "NTScanGUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
